@@ -1,0 +1,66 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" [gutter]="3" cForm cRow class="needs-validation" ngNativeValidate>
+
+  <c-col [md]="4">
+    <label cLabel>Start on</label>
+    <input class="form-control" type="date" formControlName="date" required/>
+    <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
+  </c-col>
+
+  <c-col [md]="4">
+    <label cLabel>Expert field</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01" formControlName="field">
+        <option selected>Choose...</option>
+        <option value="Harrassment">Harrassment</option>
+        <option value="Divorce">Divorce</option>
+        <option value="Social">Social</option>
+      </select>
+    </div>
+  </c-col>
+
+
+  <c-col [md]="4">
+    <label cLabel>Interview Type</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect02">Options</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect02" formControlName="type">
+        <option selected>Choose...</option>
+        <option value=True>Online</option>
+        <option value=False>In Person</option>
+      </select>
+    </div>
+    <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
+  </c-col>
+
+  <c-col [md]="4">
+  <mat-radio-group aria-label="Select an option" formControlName="status">
+    <mat-radio-button value=True>Done</mat-radio-button>
+    <mat-radio-button value=False>Not done yet</mat-radio-button>
+  </mat-radio-group>
+  </c-col>
+
+
+
+  <c-col [xs]="12">
+    <button cButton color="primary" type="submit">
+      Take Interview
+    </button>
+  </c-col>
+</form>
+
+
+<ng-template #dialogRef style="background-color: #ac2925">
+  <h1 mat-dialog-title>{{isSending ? "Sending" : "Finished"}}</h1>
+  <mat-option *ngIf="isSending" class="is-loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </mat-option>
+  <h2 *ngIf="!isSending" mat-dialog-content>{{sent ? "Successfully Added" : "Add Failed (cannot add on Saturdays and Sundays)"}}</h2>
+  <div *ngIf="!isSending" mat-dialog-actions>
+    <button class="btn btn-primary" mat-button mat-dialog-close="">Close</button>
+  </div>
+</ng-template>

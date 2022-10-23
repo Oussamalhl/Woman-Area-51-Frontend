@@ -1,0 +1,66 @@
+
+
+<br><br><br><br><br><br>
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Insert Keyword" #input>
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="id" sortActionDescription="Sort by number"> Description </th>
+    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+  </ng-container>
+  <ng-container matColumnDef="complainttype">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="user" sortActionDescription="Sort by number"> Type </th>
+    <td mat-cell *matCellDef="let element"> {{element.complaintType}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Remove">
+    <th mat-header-cell *matHeaderCellDef> Remove
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="d-flex justify-content-center">
+        <button [cPopover]="popoverHtml"
+                (click)="deleteComplaint(element.idComplaint)"
+                cPopoverPlacement="bottom"
+                [cPopoverTrigger]="'click'"
+                cButton
+                class="me-1 btn btn-ghost-danger ng-star-inserted"
+                variant="ghost"
+
+                size="lg">
+
+          <svg cIcon="" name="cil-trash" size="xl" title="Numbered List Icon"></svg>
+          <ng-template #popoverHtml>
+            <h3 class="popover-header">
+              Delete Event
+            </h3>
+
+            <div class="popover-body">
+              Are you sure you want to <i cTextColor="danger">DELETE</i> this Event?
+            </div>
+            <div class="d-flex justify-content-center">
+              <button cButton
+                      _ngcontent-qgx-c208
+                      class="me-1 btn btn-outline-danger ng-star-inserted"
+                      variant="outline"
+                      (click)="deleteComplaint(element.idComplaint)"> Delete
+              </button>
+              <button cButton
+                      ngcontent-qgx-c208
+                      class="me-1 btn btn-outline-info ng-star-inserted"
+                      variant="outline"> Cancel
+              </button>
+            </div>
+            <br>
+          </ng-template>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+<br><br><br><br><br>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

@@ -1,0 +1,47 @@
+
+<br><br><br><br><br><br>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" [gutter]="3" cForm cRow class="needs-validation" ngNativeValidate>
+
+  <c-col [md]="4">
+    <label cLabel>Description</label>
+    <input class="form-control" type="textarea" formControlName="description" required/>
+    <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
+  </c-col>
+
+  <c-col [md]="4">
+    <label cLabel>Complaint Type</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01" formControlName="type">
+        <option selected>Choose...</option>
+        <option value="Help">Help</option>
+        <option value="financialComplaint">Financial Help</option>
+        <option value="homePageComplaint">Home Page Complaint</option>
+      </select>
+    </div>
+    <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
+  </c-col>
+
+
+
+  <c-col [xs]="12">
+    <button cButton color="primary" type="submit">
+      Post complaint
+    </button>
+  </c-col>
+</form>
+
+
+<ng-template #dialogRef style="background-color: #ac2925">
+  <h1 mat-dialog-title>{{isSending ? "Sending" : "Finished"}}</h1>
+  <mat-option *ngIf="isSending" class="is-loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </mat-option>
+  <h2 *ngIf="!isSending" mat-dialog-content>{{sent ? "Successfully Posted" : "Add Failed"}}</h2>
+  <div *ngIf="!isSending" mat-dialog-actions>
+    <button class="btn btn-primary" mat-button mat-dialog-close="">Close</button>
+  </div>
+</ng-template>
+<br><br><br><br><br>

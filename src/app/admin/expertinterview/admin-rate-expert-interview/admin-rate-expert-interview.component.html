@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" cForm cRow class="needs-validation">
+  <c-col [md]="4">
+  <ngx-star-rating formControlName="rating" [id]="'rating'" class="form-control"></ngx-star-rating>
+  <p>form is valid: {{ form.valid ? 'true' : 'false' }}</p>
+  </c-col>
+  <c-col [md]="4">
+    <label cLabel>Start on</label>
+    <input class="form-control" type="textarea" formControlName="ratingText" required/>
+    <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
+  </c-col>
+
+  <c-col [xs]="12">
+    <button cButton color="primary" type="submit">
+     Submit Rate
+    </button>
+  </c-col>
+</form>
+
+<ng-template #dialogRef style="background-color: #ac2925">
+  <h1 mat-dialog-title>{{isSending ? "Sending" : "Finished"}}</h1>
+  <mat-option *ngIf="isSending" class="is-loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </mat-option>
+  <h2 *ngIf="!isSending" mat-dialog-content>{{sent ? "Successfully Added" : "Add Failed (cannot add on Saturdays and Sundays)"}}</h2>
+  <div *ngIf="!isSending" mat-dialog-actions>
+    <button class="btn btn-primary" mat-button mat-dialog-close="">Close</button>
+  </div>
+</ng-template>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

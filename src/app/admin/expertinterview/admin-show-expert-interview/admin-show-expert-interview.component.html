@@ -1,0 +1,110 @@
+
+
+<br><br><br><br><br><br>
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Insert Keyword" #input>
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+  <ng-container matColumnDef="user">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="user" sortActionDescription="Sort by number"> Username </th>
+    <td mat-cell *matCellDef="let element"> {{element.user.username}} </td>
+  </ng-container>
+  <ng-container matColumnDef="dateexpertinterview">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.dateExpertInterview}} </td>
+  </ng-container>
+  <ng-container matColumnDef="eexpertfield">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="expertfield" sortActionDescription="Sort by field"> Field </th>
+    <td *matCellDef="let element"> {{element.expertField}} </td>
+  </ng-container>
+  <ng-container matColumnDef="interviewtype" *ngIf="true; else second">
+    <th mat-header-cell *matHeaderCellDef> Type </th>
+    <td *matCellDef="let element" >Online </td>
+  </ng-container>
+  <ng-template #second>
+    <ng-container>
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td *matCellDef="let element">Locale </td>
+    </ng-container>
+  </ng-template>
+  <ng-container matColumnDef="rating">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="rating" sortActionDescription="Sort by rating"> Rating </th>
+    <td *matCellDef="let element">
+        <ngx-star-rating [(ngModel)]="element.rating"></ngx-star-rating>
+      </td>
+  </ng-container>
+  <ng-container matColumnDef="rateit">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="rateit" sortActionDescription="Sort by rating"> Rate It! </th>
+    <td *matCellDef="let element">
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button [routerLink]="['/admin/expertinterview/rate/'+element.idExpertInterview]"
+                color="primary" *ngIf="element.done==true">
+          <mat-icon>star_rate</mat-icon> Rate us!</button>
+      </div>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="expert">
+    <th mat-header-cell *matHeaderCellDef> Expert </th>
+    <td *matCellDef="let element"> {{element.expert.username}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Update">
+    <th mat-header-cell *matHeaderCellDef> Edit
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button [routerLink]="['/admin/expertinterview/edit/'+element.idExpertInterview]"
+                color="primary">
+          <mat-icon>edit</mat-icon> Edit</button>
+      </div>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Remove">
+    <th mat-header-cell *matHeaderCellDef> Remove
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="d-flex justify-content-center">
+        <button [cPopover]="popoverHtml"
+                cPopoverPlacement="bottom"
+                [cPopoverTrigger]="'click'"
+                cButton
+                class="me-1 btn btn-ghost-danger ng-star-inserted"
+                variant="ghost"
+
+                size="lg">
+
+          <svg cIcon="" name="cil-trash" size="xl" title="Numbered List Icon"></svg>
+          <ng-template #popoverHtml>
+            <h3 class="popover-header">
+              Delete Event
+            </h3>
+
+            <div class="popover-body">
+              Are you sure you want to <i cTextColor="danger">DELETE</i> this Event?
+            </div>
+            <div class="d-flex justify-content-center">
+              <button cButton
+                      _ngcontent-qgx-c208
+                      class="me-1 btn btn-outline-danger ng-star-inserted"
+                      variant="outline"
+                      (click)="deleteInterview(element.idExpertInterview)"> Delete
+              </button>
+              <button cButton
+                      ngcontent-qgx-c208
+                      class="me-1 btn btn-outline-info ng-star-inserted"
+                      variant="outline"> Cancel
+              </button>
+            </div>
+            <br>
+          </ng-template>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+<br><br><br><br><br>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
